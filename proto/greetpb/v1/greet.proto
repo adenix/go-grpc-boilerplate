@@ -28,7 +28,6 @@ service GreetService {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "Greet Caller"
       description: "Respond with a friendly greeting for the caller."
-      tags: "Greeting"
     };
   };
 }

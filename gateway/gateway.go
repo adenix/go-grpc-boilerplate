@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/adenix/go-grpc-boilerplate/gen"
+	"github.com/adenix/go-grpc-boilerplate/gen/go/calculatorpb/v1"
 	"github.com/adenix/go-grpc-boilerplate/gen/go/greetpb/v1"
 	"github.com/adenix/go-grpc-boilerplate/third_party"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -38,6 +39,10 @@ func Run(addr string) error {
 
 	mux := runtime.NewServeMux()
 	err = greetpb.RegisterGreetServiceHandler(context.Background(), mux, conn)
+	if err != nil {
+		return fmt.Errorf("failed to register REST gateway: %w", err)
+	}
+	err = calculatorpb.RegisterCalculatorServiceHandler(context.Background(), mux, conn)
 	if err != nil {
 		return fmt.Errorf("failed to register REST gateway: %w", err)
 	}

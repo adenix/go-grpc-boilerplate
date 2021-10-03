@@ -15,6 +15,9 @@
   },
   "tags": [
     {
+      "name": "CalculatorService"
+    },
+    {
       "name": "GreetService"
     }
   ],
@@ -28,6 +31,40 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/calculator/sum": {
+      "post": {
+        "summary": "Adds Numbers",
+        "description": "Adds two numbers together and returns the sum.",
+        "operationId": "CalculatorService_Sum",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SumResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SumRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CalculatorService"
+        ]
+      }
+    },
     "/api/v1/greet": {
       "post": {
         "summary": "Greet Caller",
@@ -58,7 +95,7 @@
           }
         ],
         "tags": [
-          "Greeting"
+          "GreetService"
         ]
       }
     }
@@ -115,6 +152,28 @@
         },
         "lastName": {
           "type": "string"
+        }
+      }
+    },
+    "v1SumRequest": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "b": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1SumResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     }

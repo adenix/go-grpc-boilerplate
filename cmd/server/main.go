@@ -4,7 +4,9 @@ import (
 	"log"
 	"net"
 
+	"github.com/adenix/go-grpc-boilerplate/calculator"
 	"github.com/adenix/go-grpc-boilerplate/gateway"
+	"github.com/adenix/go-grpc-boilerplate/gen/go/calculatorpb/v1"
 	"github.com/adenix/go-grpc-boilerplate/gen/go/greetpb/v1"
 	"github.com/adenix/go-grpc-boilerplate/greet"
 	"google.golang.org/grpc"
@@ -18,6 +20,7 @@ func main() {
 
 	s := grpc.NewServer()
 	greetpb.RegisterGreetServiceServer(s, greet.NewGreetServiceServer())
+	calculatorpb.RegisterCalculatorServiceServer(s, calculator.NewCalculatorServiceServer())
 
 	log.Print("Starting gRPC service on :50051")
 	go func() {

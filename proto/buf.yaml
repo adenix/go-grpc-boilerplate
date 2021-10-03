@@ -5,6 +5,8 @@ deps:
 lint:
   use:
     - DEFAULT
+    - FILE_LOWER_SNAKE_CASE
+  enum_zero_value_suffix: _INVALID
 breaking:
   use:
     - FILE

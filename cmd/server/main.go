@@ -4,8 +4,9 @@ import (
 	"log"
 	"net"
 
+	"github.com/adenix/go-grpc-boilerplate/gateway"
 	"github.com/adenix/go-grpc-boilerplate/gen/go/greetpb/v1"
-	"github.com/adenix/go-grpc-boilerplate/server"
+	"github.com/adenix/go-grpc-boilerplate/greet"
 	"google.golang.org/grpc"
 )
 
@@ -16,10 +17,17 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	greetpb.RegisterGreetServiceServer(s, server.New())
+	greetpb.RegisterGreetServiceServer(s, greet.NewGreetServiceServer())
 
 	log.Print("Starting gRPC service on :50051")
-	if err = s.Serve(lis); err != nil {
-		log.Fatalf("Failed to start gRPC service: %q", err)
+	go func() {
+		if err = s.Serve(lis); err != nil {
+			log.Fatalf("Failed to start gRPC service: %q", err)
+		}
+	}()
+
+	log.Print("Starting REST service on :8080")
+	if err = gateway.Run("dns:///0.0.0.0:50051"); err != nil {
+		log.Fatalf("Failed to start REST service: %q", err)
 	}
 }

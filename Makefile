@@ -1,5 +1,5 @@
 clean:
-	rm -rf gen/ bin/
+	rm -rf gen/go gen/openapiv2 bin/
 
 lint:
 	buf lint

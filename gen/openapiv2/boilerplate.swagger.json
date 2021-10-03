@@ -1,13 +1,25 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "greetpb/v1/greet.proto",
-    "version": "version not set"
+    "title": "gRPC Boilerplate",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Austin",
+      "url": "https://adenix.io",
+      "email": "contact@adenix.io"
+    },
+    "license": {
+      "name": "UNLICENSED",
+      "url": "https://unlicense.org"
+    }
   },
   "tags": [
     {
       "name": "GreetService"
     }
+  ],
+  "schemes": [
+    "http"
   ],
   "consumes": [
     "application/json"
@@ -18,6 +30,8 @@
   "paths": {
     "/api/v1/greet": {
       "post": {
+        "summary": "Greet Caller",
+        "description": "Respond with a friendly greeting for the caller.",
         "operationId": "GreetService_Greet",
         "responses": {
           "200": {
@@ -44,7 +58,7 @@
           }
         ],
         "tags": [
-          "GreetService"
+          "Greeting"
         ]
       }
     }
@@ -104,5 +118,9 @@
         }
       }
     }
+  },
+  "externalDocs": {
+    "description": "gRPC boilerplate repository",
+    "url": "https://github.com/adenix/go-grpc-boilerplate"
   }
 }

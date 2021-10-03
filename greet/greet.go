@@ -3,6 +3,7 @@ package greet
 import (
 	"context"
 	"fmt"
+	"log"
 	"strings"
 
 	"github.com/adenix/go-grpc-boilerplate/gen/go/greetpb/v1"
@@ -17,6 +18,8 @@ func NewGreetServiceServer() *greetServiceServer {
 }
 
 func (g *greetServiceServer) Greet(ctx context.Context, in *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
+	log.Printf("Greet procedure executed with %+v", in)
+
 	name := "World"
 	if f := in.GetGreeting().GetFirstName(); f != "" {
 		name = strings.TrimSpace(f)

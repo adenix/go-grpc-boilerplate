@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package openapi.v1;
+option go_package = "github.com/adenix/go-grpc-boilerplate/gen/go/openapi/v1;openapi";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "gRPC Boilerplate";
+    version: "1.0.0";
+    contact: {
+      name: "Austin";
+      url: "https://adenix.io";
+      email: "contact@adenix.io";
+    };
+    license: {
+      name: "UNLICENSED";
+      url: "https://unlicense.org";
+    };
+  };
+  external_docs: {
+    url: "https://github.com/adenix/go-grpc-boilerplate";
+    description: "gRPC boilerplate repository";
+  }
+  schemes: HTTP;
+  consumes: "application/json";
+  produces: "application/json";
+};
+

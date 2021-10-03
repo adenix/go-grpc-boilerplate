@@ -4,6 +4,7 @@ package greetpb.v1;
 option go_package = "github.com/adenix/go-grpc-boilerplate/gen/go/greetpb/v1;greetpb";
 
 import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 message Greeting {
   string first_name = 1;
@@ -23,6 +24,11 @@ service GreetService {
     option (google.api.http) = {
       post: "/api/v1/greet"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Greet Caller"
+      description: "Respond with a friendly greeting for the caller."
+      tags: "Greeting"
     };
   };
 }

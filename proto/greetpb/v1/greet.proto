@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+package greetpb.v1;
+option go_package = "github.com/adenix/go-grpc-boilerplate/gen/go/greetpb/v1;greetpb";
+
+service GreetService {}

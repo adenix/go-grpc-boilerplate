@@ -19,6 +19,23 @@ message GreetResponse {
   string result = 1;
 }
 
+message GreetManyTimesRequest {
+  Greeting greeting = 1;
+}
+
+message GreetManyTimesResponse {
+  string result = 1;
+  uint32 count = 2;
+}
+
+message LongGreetRequest {
+  Greeting greeting = 1;
+}
+
+message LongGreetResponse {
+  string result = 1;
+}
+
 service GreetService {
   rpc Greet(GreetRequest) returns (GreetResponse) {
     option (google.api.http) = {
@@ -27,6 +44,28 @@ service GreetService {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       summary: "Greet Caller"
+      description: "Respond with a friendly greeting for the caller."
+    };
+  };
+
+  rpc GreetManyTimes(GreetManyTimesRequest) returns (stream GreetManyTimesResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/greet/stream"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Greet Caller Repeatedly"
+      description: "Respond with a friendly greeting for the caller."
+    };
+  };
+
+  rpc LongGreet(stream LongGreetRequest) returns (LongGreetResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/greet/long"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Greet Caller After Multiple Requests"
       description: "Respond with a friendly greeting for the caller."
     };
   };

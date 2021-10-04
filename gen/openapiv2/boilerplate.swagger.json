@@ -31,6 +31,49 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/calculator/prime": {
+      "post": {
+        "summary": "Determines Prime Numbers",
+        "description": "Takes a number and returns the primes.",
+        "operationId": "CalculatorService_Prime",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1PrimeResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of v1PrimeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1PrimeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "CalculatorService"
+        ]
+      }
+    },
     "/api/v1/calculator/sum": {
       "post": {
         "summary": "Adds Numbers",
@@ -98,6 +141,84 @@
           "GreetService"
         ]
       }
+    },
+    "/api/v1/greet/long": {
+      "post": {
+        "summary": "Greet Caller After Multiple Requests",
+        "description": "Respond with a friendly greeting for the caller.",
+        "operationId": "GreetService_LongGreet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LongGreetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": " (streaming inputs)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LongGreetRequest"
+            }
+          }
+        ],
+        "tags": [
+          "GreetService"
+        ]
+      }
+    },
+    "/api/v1/greet/stream": {
+      "post": {
+        "summary": "Greet Caller Repeatedly",
+        "description": "Respond with a friendly greeting for the caller.",
+        "operationId": "GreetService_GreetManyTimes",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/v1GreetManyTimesResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of v1GreetManyTimesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GreetManyTimesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "GreetService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -128,6 +249,26 @@
         }
       }
     },
+    "v1GreetManyTimesRequest": {
+      "type": "object",
+      "properties": {
+        "greeting": {
+          "$ref": "#/definitions/v1Greeting"
+        }
+      }
+    },
+    "v1GreetManyTimesResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "v1GreetRequest": {
       "type": "object",
       "properties": {
@@ -152,6 +293,40 @@
         },
         "lastName": {
           "type": "string"
+        }
+      }
+    },
+    "v1LongGreetRequest": {
+      "type": "object",
+      "properties": {
+        "greeting": {
+          "$ref": "#/definitions/v1Greeting"
+        }
+      }
+    },
+    "v1LongGreetResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      }
+    },
+    "v1PrimeRequest": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "v1PrimeResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
